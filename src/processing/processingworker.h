@@ -36,10 +36,15 @@ public:
 private:
     FileProcessor::ProcessState processState();
 
+
 private:
     QMutex stateMutex;
     QWaitCondition pauseCondition;
 
     bool paused = false;
     bool stopRequested = false;
+
+
+
+
 };

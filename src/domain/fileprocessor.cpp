@@ -107,20 +107,5 @@ bool FileProcessor::process(
     return true;
 }
 
-FileProcessor::ProcessState ProcessingWorker::processState()
-{
-    QMutexLocker locker(&stateMutex);
 
-    while (paused && !stopRequested)
-    {
-        pauseCondition.wait(&stateMutex);
-    }
-
-    if (stopRequested)
-    {
-        return FileProcessor::ProcessState::Stop;
-    }
-
-    return FileProcessor::ProcessState::Continue;
-}
 
