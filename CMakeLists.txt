@@ -35,6 +35,10 @@ set(PROJECT_SOURCES
     src/processing/processingcontroller.cpp
     src/processing/processingcontroller.h
 
+    src/domain/outputnameresolver.cpp
+    src/domain/outputnameresolver.h
+
+
     forms/mainwindow.ui
 )
 

@@ -1,10 +1,19 @@
-#ifndef OUTPUTNAMERESOLVER_H
-#define OUTPUTNAMERESOLVER_H
+#pragma once
 
-class outputnameresolver
+#include <QString>
+
+enum class ConflictPolicy
 {
-public:
-    outputnameresolver();
+    Overwrite,
+    AddCounter
 };
 
-#endif // OUTPUTNAMERESOLVER_H
+class OutputNameResolver
+{
+public:
+    static QString resolve(
+        const QString& outputDirectory,
+        const QString& fileName,
+        ConflictPolicy policy);
+};
+
