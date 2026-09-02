@@ -38,6 +38,8 @@ set(PROJECT_SOURCES
     src/domain/outputnameresolver.cpp
     src/domain/outputnameresolver.h
 
+    src/domain/filescanner.cpp
+    src/domain/filescanner.h
 
     forms/mainwindow.ui
 )
