@@ -1,11 +1,13 @@
 // processingworker.h
 
-
 #pragma once
 
 #include "processingoptions.h"
+#include "fileprocessor.h"
 
 #include <QObject>
+#include <QMutex>
+#include <QWaitCondition>
 
 class ProcessingWorker : public QObject
 {
@@ -32,6 +34,12 @@ public:
     void requestStop();
 
 private:
+    FileProcessor::ProcessState processState();
+
+private:
+    QMutex stateMutex;
+    QWaitCondition pauseCondition;
+
     bool paused = false;
     bool stopRequested = false;
 };
