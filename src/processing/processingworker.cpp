@@ -3,6 +3,7 @@
 #include "processingworker.h"
 
 #include "fileprocessor.h"
+#include "outputnameresolver.h"
 
 #include <QDir>
 #include <QFile>
@@ -67,9 +68,17 @@ void ProcessingWorker::process(const ProcessingOptions& options)
 
         const QFileInfo fileInfo(inputFile);
 
+        const ConflictPolicy conflictPolicy =
+            options.overwriteExisting
+                ? ConflictPolicy::Overwrite
+                : ConflictPolicy::AddCounter;
+
         const QString outputFile =
-            QDir(options.outputPath)
-                .absoluteFilePath(fileInfo.fileName());
+            OutputNameResolver::resolve(
+                options.outputPath,
+                fileInfo.fileName(),
+                conflictPolicy
+                );
 
         emit fileStarted(inputFile);
 
@@ -104,9 +113,14 @@ void ProcessingWorker::process(const ProcessingOptions& options)
 
         if (!success)
         {
-            QMutexLocker locker(&stateMutex);
+            bool wasStopped = false;
 
-            if (stopRequested)
+            {
+                QMutexLocker locker(&stateMutex);
+                wasStopped = stopRequested;
+            }
+
+            if (wasStopped)
             {
                 stopped = true;
                 break;
