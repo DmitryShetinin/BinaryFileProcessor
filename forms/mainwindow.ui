@@ -127,26 +127,41 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="editOutputPath">
-         <property name="text">
-          <string>C:/output</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelInputPath">
-         <property name="text">
-          <string>Путь поиска файлов:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="editInputPath">
-         <property name="text">
-          <string>C:/input</string>
-         </property>
-        </widget>
-       </item>
+ <layout class="QHBoxLayout" name="horizontalLayoutOutputPath">
+  <item>
+   <widget class="QLineEdit" name="editOutputPath">
+    <property name="text">
+     <string>C:/output</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QPushButton" name="btnBrowseOutput">
+    <property name="text">
+     <string>Обзор...</string>
+    </property>
+   </widget>
+  </item>
+ </layout>
+</item>
+        <item row="3" column="1">
+ <layout class="QHBoxLayout" name="horizontalLayoutInputPath">
+  <item>
+   <widget class="QLineEdit" name="editInputPath">
+    <property name="text">
+     <string>C:/input</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QPushButton" name="btnBrowseInput">
+    <property name="text">
+     <string>Обзор...</string>
+    </property>
+   </widget>
+  </item>
+ </layout>
+</item>
        <item row="4" column="0">
         <widget class="QLabel" name="labelConflict">
          <property name="text">

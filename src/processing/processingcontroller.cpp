@@ -1,6 +1,5 @@
 // processingcontroller.cpp
 
-
 #include "processingcontroller.h"
 
 #include "processingworker.h"
@@ -29,13 +28,15 @@ void ProcessingController::start(const ProcessingOptions& options)
 
     worker->moveToThread(thread);
 
+    ProcessingWorker* currentWorker = worker;
+
     connect(
         thread,
         &QThread::started,
-        worker,
-        [this, options]()
+        currentWorker,
+        [currentWorker, options]()
         {
-            worker->process(options);
+            currentWorker->process(options);
         }
         );
 
@@ -81,11 +82,15 @@ void ProcessingController::start(const ProcessingOptions& options)
         &ProcessingController::finished
         );
 
+    // Worker finished processing.
+    // DirectConnection is important here because the worker's
+    // event loop is blocked while process() is running.
     connect(
         worker,
         &ProcessingWorker::finished,
         thread,
-        &QThread::quit
+        &QThread::quit,
+        Qt::DirectConnection
         );
 
     connect(
@@ -141,5 +146,11 @@ void ProcessingController::stop()
 
     worker->requestStop();
 
+    // requestStop() wakes the worker if it is paused.
+    // The worker finishes the current operation and emits finished(),
+    // which causes the thread to quit.
     thread->wait();
+
+    thread = nullptr;
+    worker = nullptr;
 }
