@@ -1,10 +1,29 @@
-#ifndef FILEPROCESSOR_H
-#define FILEPROCESSOR_H
+// fileprocessor.h
 
-class fileprocessor
+#pragma once
+
+#include <QString>
+#include <QtGlobal>
+
+#include <functional>
+
+class FileProcessor
 {
 public:
-    fileprocessor();
-};
+    enum class ProcessState
+    {
+        Continue,
+        Stop
+    };
 
-#endif // FILEPROCESSOR_H
+    using ProgressCallback =
+        std::function<ProcessState(qint64 processedBytes, qint64 totalBytes)>;
+
+    bool process(
+        const QString& inputFile,
+        const QString& outputFile,
+        quint64 xorKey,
+        const ProgressCallback& onProgress,
+        QString& errorMessage
+        );
+};
