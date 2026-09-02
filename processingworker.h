@@ -1,0 +1,37 @@
+// processingworker.h
+
+
+#pragma once
+
+#include "processingoptions.h"
+
+#include <QObject>
+
+class ProcessingWorker : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit ProcessingWorker(QObject* parent = nullptr);
+
+public slots:
+    void process(const ProcessingOptions& options);
+
+signals:
+    void progressChanged(int percent);
+    void statusChanged(const QString& status);
+    void fileStarted(const QString& file);
+    void fileFinished(const QString& file);
+
+    void error(const QString& message);
+    void finished();
+
+public:
+    void requestPause();
+    void resume();
+    void requestStop();
+
+private:
+    bool paused = false;
+    bool stopRequested = false;
+};
