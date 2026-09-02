@@ -4,6 +4,8 @@
 
 #include "fileprocessor.h"
 #include "outputnameresolver.h"
+#include "filescanner.h"
+
 
 #include <QDir>
 #include <QFile>
@@ -39,11 +41,11 @@ void ProcessingWorker::process(const ProcessingOptions& options)
         return;
     }
 
-    const QStringList files = inputDirectory.entryList(
-        QStringList{options.fileMask},
-        QDir::Files | QDir::Readable,
-        QDir::Name
-        );
+    const QStringList files =
+        FileScanner::scan(
+            options.inputPath,
+            options.fileMask
+            );
 
     if (files.isEmpty())
     {
