@@ -15,6 +15,21 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <property name="leftMargin">
+     <number>12</number>
+    </property>
+    <property name="topMargin">
+     <number>12</number>
+    </property>
+    <property name="rightMargin">
+     <number>12</number>
+    </property>
+    <property name="bottomMargin">
+     <number>12</number>
+    </property>
     <item>
      <widget class="QLabel" name="labelTitle">
       <property name="font">
@@ -36,20 +51,55 @@
       <property name="title">
        <string>Выбор файлов</string>
       </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>8</number>
+       </property>
+       <property name="leftMargin">
+        <number>8</number>
+       </property>
+       <property name="topMargin">
+        <number>8</number>
+       </property>
+       <property name="rightMargin">
+        <number>8</number>
+       </property>
+       <property name="bottomMargin">
+        <number>8</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>6</number>
+         </property>
          <item>
           <widget class="QPushButton" name="btnAddFiles">
            <property name="text">
-            <string>Добавить файлы</string>
+            <string>➕ Добавить файлы</string>
+           </property>
+           <property name="toolTip">
+            <string>Добавить файлы в список обработки</string>
+           </property>
+           <property name="minimumHeight">
+            <number>28</number>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="btnClearFiles">
            <property name="text">
-            <string>Очистить список</string>
+            <string>🗑 Очистить список</string>
+           </property>
+           <property name="toolTip">
+            <string>Удалить все файлы из списка</string>
+           </property>
+           <property name="minimumHeight">
+            <number>28</number>
            </property>
           </widget>
          </item>
@@ -73,11 +123,14 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>120</height>
+           <height>140</height>
           </size>
          </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+         </property>
+         <property name="toolTip">
+          <string>Список файлов для XOR-обработки</string>
          </property>
         </widget>
        </item>
@@ -89,11 +142,37 @@
       <property name="title">
        <string>Настройки</string>
       </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
       <layout class="QGridLayout" name="gridLayout">
+       <property name="horizontalSpacing">
+        <number>10</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>8</number>
+       </property>
+       <property name="leftMargin">
+        <number>8</number>
+       </property>
+       <property name="topMargin">
+        <number>8</number>
+       </property>
+       <property name="rightMargin">
+        <number>8</number>
+       </property>
+       <property name="bottomMargin">
+        <number>8</number>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="labelMask">
          <property name="text">
           <string>Маска входных файлов:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -102,12 +181,21 @@
          <property name="text">
           <string>.txt, .bin, testFile.bin</string>
          </property>
+         <property name="toolTip">
+          <string>Расширения или имена файлов через запятую</string>
+         </property>
+         <property name="placeholderText">
+          <string>Например: .txt, .bin, file.dat</string>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="labelDelete">
          <property name="text">
           <string>Действия с входными файлами:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -116,6 +204,9 @@
          <property name="text">
           <string>Удалять после обработки</string>
          </property>
+         <property name="toolTip">
+          <string>Удалить исходные файлы после успешной обработки</string>
+         </property>
         </widget>
        </item>
        <item row="2" column="0">
@@ -123,14 +214,23 @@
          <property name="text">
           <string>Путь сохранения результатов:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
         </widget>
        </item>
        <item row="2" column="1">
         <layout class="QHBoxLayout" name="horizontalLayoutOutputPath">
+         <property name="spacing">
+          <number>6</number>
+         </property>
          <item>
           <widget class="QLineEdit" name="editOutputPath">
            <property name="text">
             <string>C:/output</string>
+           </property>
+           <property name="toolTip">
+            <string>Каталог для сохранения обработанных файлов</string>
            </property>
           </widget>
          </item>
@@ -139,16 +239,38 @@
            <property name="text">
             <string>Обзор...</string>
            </property>
+           <property name="toolTip">
+            <string>Выбрать каталог для сохранения</string>
+           </property>
+           <property name="minimumHeight">
+            <number>28</number>
+           </property>
           </widget>
          </item>
         </layout>
        </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelInputPath">
+         <property name="text">
+          <string>Путь поиска файлов:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="1">
         <layout class="QHBoxLayout" name="horizontalLayoutInputPath">
+         <property name="spacing">
+          <number>6</number>
+         </property>
          <item>
           <widget class="QLineEdit" name="editInputPath">
            <property name="text">
             <string>C:/input</string>
+           </property>
+           <property name="toolTip">
+            <string>Каталог, в котором искать файлы по маске</string>
            </property>
           </widget>
          </item>
@@ -156,6 +278,12 @@
           <widget class="QPushButton" name="btnBrowseInput">
            <property name="text">
             <string>Обзор...</string>
+           </property>
+           <property name="toolTip">
+            <string>Выбрать каталог для поиска</string>
+           </property>
+           <property name="minimumHeight">
+            <number>28</number>
            </property>
           </widget>
          </item>
@@ -165,6 +293,9 @@
         <widget class="QLabel" name="labelConflict">
          <property name="text">
           <string>При совпадении имени выходного файла:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -180,12 +311,18 @@
            <string>Добавить счётчик</string>
           </property>
          </item>
+         <property name="toolTip">
+          <string>Действие, если файл с таким именем уже существует</string>
+         </property>
         </widget>
        </item>
        <item row="5" column="0">
         <widget class="QLabel" name="labelTimerMode">
          <property name="text">
           <string>Режим работы:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -194,12 +331,18 @@
          <property name="text">
           <string>Работа по таймеру</string>
          </property>
+         <property name="toolTip">
+          <string>Периодически проверять каталог на наличие новых файлов</string>
+         </property>
         </widget>
        </item>
        <item row="6" column="0">
         <widget class="QLabel" name="labelPollInterval">
          <property name="text">
           <string>Период опроса (сек):</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -214,12 +357,18 @@
          <property name="value">
           <number>5</number>
          </property>
+         <property name="toolTip">
+          <string>Интервал между проверками каталога (в секундах)</string>
+         </property>
         </widget>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="labelHexKey">
          <property name="text">
           <string>8-байтный ключ XOR (hex):</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -234,12 +383,8 @@
          <property name="maxLength">
           <number>16</number>
          </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelOutputPath">
-         <property name="text">
-          <string>Путь поиска файлов:</string>
+         <property name="toolTip">
+          <string>16 символов в шестнадцатеричном формате (8 байт)</string>
          </property>
         </widget>
        </item>
@@ -248,10 +393,19 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayoutButtons">
+      <property name="spacing">
+       <number>8</number>
+      </property>
       <item>
        <widget class="QPushButton" name="btnStart">
         <property name="text">
          <string>▶ Старт</string>
+        </property>
+        <property name="toolTip">
+         <string>Начать обработку файлов</string>
+        </property>
+        <property name="minimumHeight">
+         <number>32</number>
         </property>
        </widget>
       </item>
@@ -263,6 +417,12 @@
         <property name="text">
          <string>⏸ Пауза</string>
         </property>
+        <property name="toolTip">
+         <string>Приостановить обработку</string>
+        </property>
+        <property name="minimumHeight">
+         <number>32</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -273,6 +433,12 @@
         <property name="text">
          <string>⏵ Продолжить</string>
         </property>
+        <property name="toolTip">
+         <string>Возобновить обработку</string>
+        </property>
+        <property name="minimumHeight">
+         <number>32</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -282,6 +448,12 @@
         </property>
         <property name="text">
          <string>⏹ Стоп</string>
+        </property>
+        <property name="toolTip">
+         <string>Остановить обработку</string>
+        </property>
+        <property name="minimumHeight">
+         <number>32</number>
         </property>
        </widget>
       </item>
@@ -295,6 +467,9 @@
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
+      <property name="styleSheet">
+       <string notr="true">font-weight: bold; color: #2e7d32;</string>
+      </property>
      </widget>
     </item>
     <item>
@@ -304,6 +479,9 @@
       </property>
       <property name="textVisible">
        <bool>true</bool>
+      </property>
+      <property name="minimumHeight">
+       <number>20</number>
       </property>
      </widget>
     </item>
@@ -317,6 +495,15 @@
       </property>
       <property name="placeholderText">
        <string>Лог операций...</string>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>120</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: Consolas, "Courier New", monospace; font-size: 10pt;</string>
       </property>
      </widget>
     </item>

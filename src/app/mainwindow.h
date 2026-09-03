@@ -38,6 +38,8 @@ private slots:
     void onFileStarted(const QString& file);
     void onFileFinished(const QString& file);
     void onProgressChanged(int percent);
+    void on_btnClearFiles_clicked();
+
 
 private:
     Ui::MainWindow *ui;
