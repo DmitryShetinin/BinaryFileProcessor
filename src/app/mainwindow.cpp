@@ -62,9 +62,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+
 void MainWindow::on_btnAddFiles_clicked()
 {
-    // Реализуем отдельно.
+    const QStringList files =
+        QFileDialog::getOpenFileNames(
+            this,
+            "Выберите файлы",
+            ui->editInputPath->text(),
+            "Все файлы (*.*)"
+            );
+
+    for (const QString& file : files)
+    {
+        if (ui->listFiles->findItems(
+                             file,
+                             Qt::MatchExactly
+                             ).isEmpty())
+        {
+            ui->listFiles->addItem(file);
+        }
+    }
 }
 
 void MainWindow::on_btnStart_clicked()
@@ -338,4 +357,10 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
 
 
+
+
+void MainWindow::on_btnClearFiles_clicked()
+{
+    ui->listFiles->clear();
+}
 
