@@ -2,6 +2,10 @@
 #include "./ui_mainwindow.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QCloseEvent>
+#include <QRegularExpression>
+#include <QDir>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -65,6 +69,11 @@ void MainWindow::on_btnAddFiles_clicked()
 
 void MainWindow::on_btnStart_clicked()
 {
+    if (!validateInput())
+    {
+        return;
+    }
+
     const ProcessingOptions options =
         collectProcessingOptions();
 
@@ -76,6 +85,108 @@ void MainWindow::on_btnStart_clicked()
     ui->btnStop->setEnabled(true);
 
     ui->progressBar->setValue(0);
+}
+
+
+bool MainWindow::validateInput() const
+{
+    const QString inputPath =
+        ui->editInputPath->text().trimmed();
+
+    const QString outputPath =
+        ui->editOutputPath->text().trimmed();
+
+    const QString mask =
+        ui->editMask->text().trimmed();
+
+    const QString hexKey =
+        ui->editHexKey->text().trimmed();
+
+    if (inputPath.isEmpty())
+    {
+        QMessageBox::warning(
+            const_cast<MainWindow*>(this),
+            "Ошибка",
+            "Не указана папка для поиска файлов."
+            );
+
+        return false;
+    }
+
+    if (outputPath.isEmpty())
+    {
+        QMessageBox::warning(
+            const_cast<MainWindow*>(this),
+            "Ошибка",
+            "Не указана папка для сохранения результатов."
+            );
+
+        return false;
+    }
+
+    if (mask.isEmpty())
+    {
+        QMessageBox::warning(
+            const_cast<MainWindow*>(this),
+            "Ошибка",
+            "Не указана маска входных файлов."
+            );
+
+        return false;
+    }
+
+    const QString inputAbsolutePath =
+        QDir::cleanPath(
+            QDir(inputPath).absolutePath()
+            );
+
+    const QString outputAbsolutePath =
+        QDir::cleanPath(
+            QDir(outputPath).absolutePath()
+            );
+
+    if (inputAbsolutePath.compare(
+            outputAbsolutePath,
+            Qt::CaseInsensitive
+            ) == 0)
+    {
+        QMessageBox::warning(
+            const_cast<MainWindow*>(this),
+            "Ошибка",
+            "Папка поиска файлов и папка сохранения результатов "
+            "не должны совпадать."
+            );
+
+        return false;
+    }
+
+    if (hexKey.size() != 16)
+    {
+        QMessageBox::warning(
+            const_cast<MainWindow*>(this),
+            "Ошибка",
+            "XOR-ключ должен содержать ровно 16 hex-символов (8 байт)."
+            );
+
+        return false;
+    }
+
+    const QRegularExpression hexPattern(
+        "^[0-9A-Fa-f]{16}$"
+        );
+
+    if (!hexPattern.match(hexKey).hasMatch())
+    {
+        QMessageBox::warning(
+            const_cast<MainWindow*>(this),
+            "Ошибка",
+            "XOR-ключ должен содержать только hex-символы (0-9, A-F)."
+            );
+
+        return false;
+    }
+
+    return true;
 }
 
 void MainWindow::on_btnPause_clicked()
@@ -130,7 +241,7 @@ ProcessingOptions MainWindow::collectProcessingOptions() const
         ui->spinPollInterval->value();
 
     options.xorKey =
-        ui->editHexKey->text().toULongLong(
+        ui->editHexKey->text().trimmed().toULongLong(
             nullptr,
             16
             );
@@ -150,6 +261,12 @@ void MainWindow::onProcessingError(const QString& message)
 {
     ui->logOutput->appendPlainText(
         "[ERROR] " + message
+        );
+
+    QMessageBox::critical(
+        this,
+        "Ошибка",
+        message
         );
 }
 
@@ -210,5 +327,15 @@ void MainWindow::on_btnBrowseOutput_clicked()
         ui->editOutputPath->setText(directory);
     }
 }
+
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    controller->stop();
+
+    event->accept();
+}
+
+
 
 
