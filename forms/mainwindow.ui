@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>700</height>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,6 @@
       <property name="font">
        <font>
         <pointsize>18</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -28,7 +27,7 @@
        <string>🛠 XOR File Modifier</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -57,7 +56,7 @@
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -78,7 +77,7 @@
           </size>
          </property>
          <property name="selectionMode">
-          <enum>QAbstractItemView::ExtendedSelection</enum>
+          <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
          </property>
         </widget>
        </item>
@@ -127,41 +126,41 @@
         </widget>
        </item>
        <item row="2" column="1">
- <layout class="QHBoxLayout" name="horizontalLayoutOutputPath">
-  <item>
-   <widget class="QLineEdit" name="editOutputPath">
-    <property name="text">
-     <string>C:/output</string>
-    </property>
-   </widget>
-  </item>
-  <item>
-   <widget class="QPushButton" name="btnBrowseOutput">
-    <property name="text">
-     <string>Обзор...</string>
-    </property>
-   </widget>
-  </item>
- </layout>
-</item>
-        <item row="3" column="1">
- <layout class="QHBoxLayout" name="horizontalLayoutInputPath">
-  <item>
-   <widget class="QLineEdit" name="editInputPath">
-    <property name="text">
-     <string>C:/input</string>
-    </property>
-   </widget>
-  </item>
-  <item>
-   <widget class="QPushButton" name="btnBrowseInput">
-    <property name="text">
-     <string>Обзор...</string>
-    </property>
-   </widget>
-  </item>
- </layout>
-</item>
+        <layout class="QHBoxLayout" name="horizontalLayoutOutputPath">
+         <item>
+          <widget class="QLineEdit" name="editOutputPath">
+           <property name="text">
+            <string>C:/output</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnBrowseOutput">
+           <property name="text">
+            <string>Обзор...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayoutInputPath">
+         <item>
+          <widget class="QLineEdit" name="editInputPath">
+           <property name="text">
+            <string>C:/input</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnBrowseInput">
+           <property name="text">
+            <string>Обзор...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item row="4" column="0">
         <widget class="QLabel" name="labelConflict">
          <property name="text">
@@ -226,14 +225,21 @@
        </item>
        <item row="7" column="1">
         <widget class="QLineEdit" name="editHexKey">
+         <property name="inputMask">
+          <string>HHHHHHHHHHHHHHHH</string>
+         </property>
          <property name="text">
           <string>1234567890ABCDEF</string>
          </property>
          <property name="maxLength">
           <number>16</number>
          </property>
-         <property name="inputMask">
-          <string>HHHHHHHHHHHHHHHH</string>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelOutputPath">
+         <property name="text">
+          <string>Путь поиска файлов:</string>
          </property>
         </widget>
        </item>
@@ -251,31 +257,31 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnPause">
-        <property name="text">
-         <string>⏸ Пауза</string>
-        </property>
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>⏸ Пауза</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnResume">
-        <property name="text">
-         <string>⏵ Продолжить</string>
-        </property>
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>⏵ Продолжить</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnStop">
-        <property name="text">
-         <string>⏹ Стоп</string>
-        </property>
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>⏹ Стоп</string>
         </property>
        </widget>
       </item>
@@ -287,7 +293,7 @@
        <string>Готов к работе</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
     </item>
