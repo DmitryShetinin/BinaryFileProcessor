@@ -3,6 +3,7 @@
 #include "processingcontroller.h"
 
 #include <QMainWindow>
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,6 +18,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+protected:
+    void closeEvent(QCloseEvent* event) override;
 
 private slots:
     void on_btnAddFiles_clicked();
@@ -35,12 +39,10 @@ private slots:
     void onFileFinished(const QString& file);
     void onProgressChanged(int percent);
 
-
-
-private:
-    ProcessingOptions collectProcessingOptions() const;
-
 private:
     Ui::MainWindow *ui;
     ProcessingController* controller;
+
+    bool validateInput() const;
+    ProcessingOptions collectProcessingOptions() const;
 };
